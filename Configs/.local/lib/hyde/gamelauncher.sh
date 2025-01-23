@@ -79,7 +79,7 @@ if [ -z "${run_lutris}" ] || echo "$*" | grep -q "steam" ; then
     if pkg_installed steam ; then
         SteamLib="${XDG_DATA_HOME:-$HOME/.local/share}/Steam/config/libraryfolders.vdf"
         SteamThumb="${XDG_DATA_HOME:-$HOME/.local/share}/Steam/appcache/librarycache"
-        steamlaunch="steam"
+        steamlaunch="steam  -compat-force-slr off"
     else
         SteamLib="$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam/config/libraryfolders.vdf"
         SteamThumb="$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam/appcache/librarycache"

@@ -37,7 +37,7 @@ hypr_scale=$(hyprctl -j monitors | jq '.[] | select (.focused == true) | .scale'
 
 case "${wlogoutStyle}" in
 1)
-    wlColms=6
+    wlColms=5
     export mgn=$((y_mon * 28 / hypr_scale))
     export hvr=$((y_mon * 23 / hypr_scale))
     ;;

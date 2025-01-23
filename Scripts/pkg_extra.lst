@@ -1,5 +1,5 @@
 # --------------------------------------------------- // System
-# downgrade                                            # downgrade packages
+downgrade                                              # downgrade packages
 # trash-cli-git                                        # cli to manage trash files
 # libinput-gestures                                    # actions touchpad gestures using libinput
 # gestures                                             # gui for libinput-gestures
@@ -20,14 +20,14 @@ xdg-desktop-portal-gtk                                 # xdg desktop portal usin
 # --------------------------------------------------- // Gaming
 steam                                                  # gaming platform
 gamemode                                               # daemon and library for game optimizations
-mangohud                                               # system performance overlay
+# mangohud                                             # system performance overlay
 # gamescope                                            # micro-compositor for gaming
 # lutris                                               # Lutris is an open source gaming platform for Linux
 
 # --------------------------------------------------- // Music
-cava                                                   # audio visualizer
-spotify                                                # proprietary music streaming service
-spicetify-cli                                          # cli to customize spotify client
+# cava                                                 # audio visualizer
+# spotify                                              # proprietary music streaming service
+# spicetify-cli                                        # cli to customize spotify client
 
 # --------------------------------------------------- // Apps
 # neovim                                               # vim based text editor

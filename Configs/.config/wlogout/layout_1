@@ -13,13 +13,6 @@
 }
 
 {
-    "label": "suspend",
-    "action": "lockscreen.sh & disown && systemctl suspend",
-    "text": "Suspend",
-    "keybind": "u"
-}
-
-{
     "label": "shutdown",
     "action": "systemctl poweroff",
     "text": "Shutdown",
@@ -27,10 +20,10 @@
 }
 
 {
-    "label": "hibernate",
-    "action": "systemctl hibernate",
-    "text": "Hibernate",
-    "keybind": "h"
+    "label": "suspend",
+    "action": "lockscreen.sh & disown && systemctl suspend",
+    "text": "Suspend",
+    "keybind": "u"
 }
 
 {
