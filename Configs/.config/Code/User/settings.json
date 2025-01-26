@@ -1,5 +1,6 @@
 {
   "workbench.colorTheme": "Catppuccin Mocha",
+  "workbench.iconTheme": "catppuccin-mocha",
   "workbench.settings.applyToAllProfiles": [],
   "workbench.editor.empty.hint": "hidden",
   "workbench.startupEditor": "none",
@@ -22,5 +23,5 @@
   "terminal.integrated.persistentSessionReviveProcess": "never",
   "terminal.integrated.enablePersistentSessions": false,
   "telemetry.telemetryLevel": "off",
-  "sonarlint.ls.javaHome": "/usr/lib/jvm/java-22-openjdk"
+  "sonarlint.ls.javaHome": "/usr/lib/jvm/java-21-openjdk"
 }
