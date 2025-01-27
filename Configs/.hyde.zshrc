@@ -37,10 +37,10 @@
 
 #  Plugins 
 # manually add your oh-my-zsh plugins here
-# plugins=(
-    # "sudo"
+plugins=(
+    "sudo"
     # "git"                     # (default)
     # "zsh-autosuggestions"     # (default)
     # "zsh-syntax-highlighting" # (default)
     # "zsh-completions"         # (default)
-# )
+)
