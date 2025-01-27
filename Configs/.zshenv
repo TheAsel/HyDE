@@ -100,7 +100,6 @@ function slow_load_warning {
             - Check the '.zshrc' file from the repo for a clean configuration.
                 https://github.com/HyDE-Project/HyDE/blob/master/Configs/.zshrc
         3. Check the '~/.hyde.zshrc' file for any slow initialization scripts.
-        4. Check the '~/.p10k.zsh' file for any slow initialization scripts.
 
     For more information, on the possible causes of slow shell startup, see:
         🌐 https://github.com/HyDE-Project/HyDE/wiki
@@ -127,14 +126,6 @@ function no_such_file_or_directory_handler {
     printf "${red}zsh: no such file or directory: %s${reset}\n" "$1"
     return 127
 }
-
-# We are loading the prompt on start so users can see the prompt immediately
-# Powerlevel10k theme path
-P10k_THEME=${P10k_THEME:-/usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme}
-[[ -r $P10k_THEME ]] && source $P10k_THEME
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Detect AUR wrapper and cache it for faster subsequent loads
 aur_cache_file="/tmp/.aurhelper.zshrc"
