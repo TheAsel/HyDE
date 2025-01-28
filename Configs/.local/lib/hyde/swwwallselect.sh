@@ -8,9 +8,9 @@ source "${scrDir}/globalcontrol.sh"
 
 #// set rofi scaling
 
-rofiScale=6 #"${ROFI_WALLPAPER_SCALE}"
-[[ "${rofiScale}" =~ ^[0-9]+$ ]] || rofiScale=${ROFI_SCALE:-10}
-r_scale="configuration {font: \"JetBrainsMono Nerd Font ${rofiScale}\";}"
+font_scale=6 #"${ROFI_WALLPAPER_SCALE}"
+[[ "${font_scale}" =~ ^[0-9]+$ ]] || font_scale=${ROFI_SCALE:-10}
+font_override="* {font: \"JetBrainsMono Nerd Font ${font_scale}\";}"
 # shellcheck disable=SC2154
 elem_border=$((hypr_border * 3))
 
@@ -20,8 +20,8 @@ mon_x_res=$(hyprctl -j monitors | jq '.[] | select(.focused == true) | (.width /
 
 #// generate config
 
-elm_width=$(((28 + 8 + 5) * rofiScale))
-max_avail=$((mon_x_res - (4 * rofiScale)))
+elm_width=$(((28 + 8 + 5) * font_scale))
+max_avail=$((mon_x_res - (4 * font_scale)))
 col_count=$((max_avail / elm_width))
 r_override="window{width:100%;}
     listview{columns:${col_count};spacing:5em;}
@@ -47,7 +47,7 @@ done
 rofiSel=$(paste <(printf "%s\n" "${wallListBase[@]}") <(printf "|%s\n" "${wallHash[@]}") |
     awk -F '|' -v thmbDir="${thmbDir}" '{split($1, arr, "/"); print arr[length(arr)] "\x00icon\x1f" thmbDir "/" $2 ".sqre"}' |
     rofi -dmenu \
-        -theme-str "${r_scale}" \
+        -theme-str "${font_override}" \
         -theme-str "${r_override}" \
         -theme "${ROFI_WALLPAPER_STYLE:-selector}" \
         -select "${currentWall}" | xargs)
