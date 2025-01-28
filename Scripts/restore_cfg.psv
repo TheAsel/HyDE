@@ -56,7 +56,7 @@ S|${HOME}/.config/Code/User|settings.json|visual-studio-code-bin
 S|${HOME}/.config/VSCodium/User|settings.json|vscodium
 
  Bar 
-S|${HOME}/.config/waybar|config.ctl|waybar
+P|${HOME}/.config/waybar|config.ctl|waybar
 S|${HOME}/.config/waybar|modules config.jsonc theme.css style.css|waybar
 
  Terminal 

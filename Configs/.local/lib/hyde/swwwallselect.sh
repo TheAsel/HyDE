@@ -8,7 +8,7 @@ source "${scrDir}/globalcontrol.sh"
 
 #// set rofi scaling
 
-font_scale=6 #"${ROFI_WALLPAPER_SCALE}"
+font_scale="${ROFI_WALLPAPER_SCALE}"
 [[ "${font_scale}" =~ ^[0-9]+$ ]] || font_scale=${ROFI_SCALE:-10}
 font_override="* {font: \"JetBrainsMono Nerd Font ${font_scale}\";}"
 # shellcheck disable=SC2154
