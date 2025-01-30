@@ -24,7 +24,7 @@ font_scale="${ROFI_LAUNCHER_SCALE}"
 case "${1}" in
 d | --drun)
     r_mode="drun"
-    rofi_config="${ROFI_LAUNCH_STYLE:-$rofi_config}"
+    rofi_config="${ROFI_LAUNCH_DRUN_STYLE:-$rofi_config}"
     ;;
 w | --window)
     r_mode="window"
@@ -48,7 +48,8 @@ h | --help)
     ;;
 *)
     r_mode="drun"
-    rofi_config="${ROFI_LAUNCH_STYLE:-$rofi_config}"
+    ROFI_LAUNCH_DRUN_STYLE="${ROFI_LAUNCH_DRUN_STYLE:-$ROFI_LAUNCH_STYLE}"
+    rofi_config="${ROFI_LAUNCH_DRUN_STYLE:-$rofi_config}"
     ;;
 esac
 
@@ -57,14 +58,22 @@ hypr_border="${hypr_border:-10}"
 hypr_width="${hypr_width:-2}"
 wind_border=$((hypr_border * 3))
 
-if [[ "$ROFI_LAUNCH_FULLSCREEN" == "true" ]]; then
+if [[ -f "${HYDE_STATE_HOME}/fullscreen_${r_mode}" ]]; then
     hypr_width="0"
     wind_border="0"
 fi
 
 [ "${hypr_border}" -eq 0 ] && elem_border="10" || elem_border=$((hypr_border * 2))
 r_override="window {border: ${hypr_width}px; border-radius: ${wind_border}px;} element {border-radius: ${elem_border}px;}"
-font_override="* {font: \"JetBrainsMono Nerd Font ${font_scale}\";}"
+
+# set font name
+font_name=${ROFI_LAUNCH_FONT:-$ROFI_FONT}
+font_name=${font_name:-$(get_hyprConf "MENU_FONT")}
+font_name=${font_name:-$(get_hyprConf "FONT")}
+
+# set rofi font override
+font_override="* {font: \"${font_name:-"JetBrainsMono Nerd Font"} ${font_scale}\";}"
+
 i_override="$(get_hyprConf "ICON_THEME")"
 i_override="configuration {icon-theme: \"${i_override}\";}"
 
@@ -92,4 +101,4 @@ rofi -show "${r_mode}" \
     -theme-str "${r_override}" \
     -theme "${rofi_config}" \
     -dump-theme |
-    { grep -q "fullscreen.*true" && set_conf "ROFI_LAUNCH_FULLSCREEN" "true"; } || set_conf "ROFI_LAUNCH_FULLSCREEN" "false"
+    { grep -q "fullscreen.*true" && touch "${HYDE_STATE_HOME}/fullscreen_${r_mode}"; } || rm -f "${HYDE_STATE_HOME}/fullscreen_${r_mode}"

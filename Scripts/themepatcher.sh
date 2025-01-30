@@ -69,20 +69,21 @@ Usage:
     $(print_prompt "$0 " -y "Theme-Name " -c "https://github.com/User/Repository/tree/branch")
 
 Options:
-    'export FORCE_THEME_UPDATE=true'       Overwrites the archived files (useful for updates and changes in gtk/icons/cursor archives)
+    'export FULL_THEME_UPDATE=true'       Overwrites the archived files (useful for updates and changes in archives)
 
 Supported Archive Format:
-    | File prfx       | Hyprland variable | Target dir                      |
-    | --------------- | ----------------- | --------------------------------|
-    | Gtk_            | \$GTK_THEME        | \$HOME/.local/share/themes     |
-    | Icon_           | \$ICON_THEME       | \$HOME/.local/share/icons      |
-    | Cursor_         | \$CURSOR_THEME     | \$HOME/.local/share/icons      |
-    | Sddm_           | \$SDDM_THEME       | /usr/share/sddm/themes         |
-    | Font_           | \$FONT             | \$HOME/.local/share/fonts      |
-    | Document-Font_  | \$DOCUMENT_FONT    | \$HOME/.local/share/fonts      |
-    | Monospace-Font_ | \$MONOSPACE_FONT   | \$HOME/.local/share/fonts      |
-    | Waybar-Font_    | \$WAYBAR_FONT      | \$HOME/.local/share/fonts      |
-    | Rofi-Font_      | \$ROFI_FONT        | \$HOME/.local/share/fonts      |
+    | File prfx          | Hyprland variable | Target dir                      |
+    | ---------------    | ----------------- | --------------------------------|
+    | Gtk_               | \$GTK_THEME        | \$HOME/.local/share/themes     |
+    | Icon_              | \$ICON_THEME       | \$HOME/.local/share/icons      |
+    | Cursor_            | \$CURSOR_THEME     | \$HOME/.local/share/icons      |
+    | Sddm_              | \$SDDM_THEME       | /usr/share/sddm/themes         |
+    | Font_              | \$FONT             | \$HOME/.local/share/fonts      |
+    | Document-Font_     | \$DOCUMENT_FONT    | \$HOME/.local/share/fonts      |
+    | Monospace-Font_    | \$MONOSPACE_FONT   | \$HOME/.local/share/fonts      |
+    | Notification-Font_ | \$NOTIFICATION_FONT | \$HOME/.local/share/fonts  |
+    | Bar-Font_          | \$BAR_FONT         | \$HOME/.local/share/fonts      |
+    | Menu-Font_         | \$MENU_FONT        | \$HOME/.local/share/fonts      |
 
 Note:
     Target directories without enough permissions will be skipped.
@@ -213,11 +214,14 @@ check_tars() {
         monospace-font)
             grep "^[[:space:]]*\$MONOSPACE[-_]FONT\s*=" "${Fav_Theme_Dir}/hypr.theme" | cut -d '=' -f2 | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
             ;;
-        waybar-font)
-            grep "^[[:space:]]*\$WAYBAR[-_]FONT\s*=" "${Fav_Theme_Dir}/hypr.theme" | cut -d '=' -f2 | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
+        bar-font)
+            grep "^[[:space:]]*\$BAR[-_]FONT\s*=" "${Fav_Theme_Dir}/hypr.theme" | cut -d '=' -f2 | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
             ;;
-        rofi-font)
-            grep "^[[:space:]]*\$ROFI[-_]FONT\s*=" "${Fav_Theme_Dir}/hypr.theme" | cut -d '=' -f2 | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
+        menu-font)
+            grep "^[[:space:]]*\$MENU[-_]FONT\s*=" "${Fav_Theme_Dir}/hypr.theme" | cut -d '=' -f2 | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
+            ;;
+        notification-font)
+            grep "^[[:space:]]*\$NOTIFICATION[-_]FONT\s*=" "${Fav_Theme_Dir}/hypr.theme" | cut -d '=' -f2 | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
             ;;
 
         *) # fallback to older method
@@ -230,14 +234,19 @@ check_tars() {
     gsVal=${gsVal:-$(awk -F"[\"']" '/^[[:space:]]*exec[[:space:]]*=[[:space:]]*gsettings[[:space:]]*set[[:space:]]*org.gnome.desktop.interface[[:space:]]*'"${gsLow}"'-theme[[:space:]]*/ {last=$2} END {print last}' "${Fav_Theme_Dir}/hypr.theme")}
 
     if [ -n "${gsVal}" ]; then
-        print_prompt -g "[OK] " "hypr.theme :: [${gsLow}]" -b " ${gsVal}"
-        trArc="$(find "${Theme_Dir}" -type f -name "${inVal}_*.tar.*")"
-        [ -f "${trArc}" ] && [ "$(echo "${trArc}" | wc -l)" -eq 1 ] && trVal="$(basename "$(tar -tf "${trArc}" | cut -d '/' -f1 | sort -u)")" && trVal="$(echo "${trVal}" | grep -w "${gsVal}")"
-        print_prompt -g "[OK] " "../*.tar.* :: [${gsLow}]" -b " ${trVal}"
-        [ "${trVal}" != "${gsVal}" ] && print_prompt -r "[ERROR] " "${gsLow}-theme set in hypr.theme does not exist in ${inVal}_*.tar.*" && exit_flag=true
+
+        if [[ "${gsVal}" =~ ^\$\{?[A-Za-z_][A-Za-z0-9_]*\}?$ ]]; then # check is a variable is set into a variable eg $FONT=$DOCUMENT_FONT
+            print_prompt -y "[warn] " "Variable ${gsVal} detected,be sure ${gsVal} is set in hypr.theme, skipping check"
+        else
+            print_prompt -g "[OK] " "hypr.theme :: [${gsLow}]" -b " ${gsVal}"
+            trArc="$(find "${Theme_Dir}" -type f -name "${inVal}_*.tar.*")"
+            [ -f "${trArc}" ] && [ "$(echo "${trArc}" | wc -l)" -eq 1 ] && trVal="$(basename "$(tar -tf "${trArc}" | cut -d '/' -f1 | sort -u)")" && trVal="$(echo "${trVal}" | grep -w "${gsVal}")"
+            print_prompt -g "[OK] " "../*.tar.* :: [${gsLow}]" -b " ${trVal}"
+            [ "${trVal}" != "${gsVal}" ] && print_prompt -r "[ERROR] " "${gsLow} set in hypr.theme does not exist in ${inVal}_*.tar.*" && exit_flag=true
+        fi
     else
         [ "${2}" == "--mandatory" ] && print_prompt -r "[ERROR] " "hypr.theme :: [${gsLow}] Not Found" && exit_flag=true && return 0
-        print_prompt -y "[warn] " "hypr.theme :: [${gsLow}] Not Found"
+        print_prompt -y "[warn] " "hypr.theme :: [${gsLow}] Not Found, don't worry if it's not needed"
     fi
 }
 
@@ -248,8 +257,9 @@ check_tars Sddm
 check_tars Font
 check_tars Document-Font
 check_tars Monospace-Font
-check_tars Waybar-Font
-check_tars Rofi-Font
+check_tars Bar-Font
+check_tars Menu-Font
+check_tars Notification-Font
 print_prompt "" && [[ "${exit_flag}" = true ]] && exit 1
 
 # extract arcs
@@ -261,8 +271,9 @@ declare -A archive_map=(
     ["Font"]="${HOME}/.local/share/fonts"
     ["Document-Font"]="${HOME}/.local/share/fonts"
     ["Monospace-Font"]="${HOME}/.local/share/fonts"
-    ["Waybar-Font"]="${HOME}/.local/share/fonts"
-    ["Rofi-Font"]="${HOME}/.local/share/fonts"
+    ["Bar-Font"]="${HOME}/.local/share/fonts"
+    ["Menu-Font"]="${HOME}/.local/share/fonts"
+    ["Notification-Font"]="${HOME}/.local/share/fonts"
 )
 
 for prefix in "${!archive_map[@]}"; do
@@ -271,7 +282,7 @@ for prefix in "${!archive_map[@]}"; do
     tgtDir="${archive_map[$prefix]}"
     [ -d "${tgtDir}" ] || mkdir -p "${tgtDir}"
     tgtChk="$(basename "$(tar -tf "${tarFile}" | cut -d '/' -f1 | sort -u)")"
-    [ -d "${tgtDir}/${tgtChk}" ] && print_prompt -y "[skip] " "\"${tgtDir}/${tgtChk}\" already exists" && continue
+    [[ "${FULL_THEME_UPDATE}" = true ]] || { [ -d "${tgtDir[indx]}/${tgtChk}" ] && print_prompt -y "[skip] " "\"${tgtDir[indx]}/${tgtChk}\" already exists" && continue; }
     print_prompt -g "[extracting] " "${tarFile} --> ${tgtDir}"
     tar -xf "${tarFile}" -C "${tgtDir}"
 done

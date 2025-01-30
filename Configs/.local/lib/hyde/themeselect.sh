@@ -25,7 +25,15 @@ selector_menu() {
     #// set rofi scaling
     font_scale="${ROFI_THEME_MENU_SCALE}"
     [[ "${font_scale}" =~ ^[0-9]+$ ]] || font_scale=${ROFI_SCALE:-10}
-    font_override="* {font: \"JetBrainsMono Nerd Font ${font_scale}\";}"
+
+    # set font name
+    font_name=${ROFI_THEME_MENU_FONT:-$ROFI_FONT}
+    font_name=${font_name:-$(get_hyprConf "MENU_FONT")}
+    font_name=${font_name:-$(get_hyprConf "FONT")}
+
+    # set rofi font override
+    font_override="* {font: \"${font_name:-"JetBrainsMono Nerd Font"} ${font_scale}\";}"
+
     elem_border=$((hypr_border * 5))
     icon_border=$((elem_border - 5))
     elm_width=$((256 * 2)) #TODO: This is 256 as the images are 256x256 px
@@ -82,7 +90,7 @@ HELP
 
 case "$1" in
 
--s | --select-menu)
+-m | -s | --select-menu)
     selector_menu
     ;;
 -*)
@@ -95,7 +103,15 @@ case "$1" in
     # shellcheck disable=SC2153
     font_scale="${ROFI_THEME_SCALE}"
     [[ "${font_scale}" =~ ^[0-9]+$ ]] || font_scale=${ROFI_SCALE:-10}
-    font_override="* {font: \"JetBrainsMono Nerd Font ${font_scale}\";}"
+
+    # set font name
+    font_name=${ROFI_THEME_FONT:-$ROFI_FONT}
+    font_name=${font_name:-$(get_hyprConf "MENU_FONT")}
+    font_name=${font_name:-$(get_hyprConf "FONT")}
+
+    # set rofi font override
+    font_override="* {font: \"${font_name:-"JetBrainsMono Nerd Font"} ${font_scale}\";}"
+
     # shellcheck disable=SC2154
     elem_border=$((hypr_border * 5))
     icon_border=$((elem_border - 5))
