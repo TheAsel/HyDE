@@ -11,6 +11,7 @@ plugins=( git sudo zsh-256color zsh-autosuggestions zsh-syntax-highlighting )
 #  Aliases 
 # Add aliases here
 alias timefix='timedatectl set-ntp true'
+alias ssh='kitten ssh'
 
 #  This is your file 
 # Add your configurations here
