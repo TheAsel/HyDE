@@ -185,6 +185,8 @@ if [ -t 1 ]; then
         up='$PM upgrade' \
         pl='$PM search installed' \
         pa='$PM search all' \
+        pc='sudo pacman -Sc' \
+        po='sudo pacman -Qtdq | sudo pacman -Rns -' \
         vc='code' \
         fastfetch='fastfetch --logo-type kitty' \
         ..='cd ..' \
