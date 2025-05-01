@@ -70,7 +70,8 @@ S|${HOME}/.config/kitty|kitty.conf|kitty
 
  Shell 
 S|${HOME}/.config|fish|fish
-S|${HOME}|.zshrc .hyde.zshrc|zsh
+S|${HOME}|.zshrc .hyde.zshrc .p10k.zsh|zsh
+S|${HOME}/.config/starship|starship.toml|starship
 S|${HOME}|.zshenv|zsh
 S|${HOME}/.config|starship.toml|starship
 
