@@ -28,3 +28,6 @@ source /usr/share/nvm/init-nvm.sh
 
 # Initialize Starship
 eval "$(starship init zsh)"
+
+# export EDITOR=nvim
+export EDITOR=code

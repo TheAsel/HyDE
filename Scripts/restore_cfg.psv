@@ -33,6 +33,7 @@ S|${HOME}/.config/hyde|config.toml|hyprland
 S|${HOME}/.config/hypr|hyde.conf workflows.conf animations.conf windowrules.conf keybindings.conf userprefs.conf monitors.conf|hyprland
 S|${HOME}/.config/hypr|nvidia.conf|hyprland nvidia-utils
 S|${HOME}/.config/hypr/themes|theme.conf wallbash.conf colors.conf|hyprland
+S|${HOME}/.config/systemd|user|systemd
 S|${HOME}/.local/state/hyde|hyprland.conf|hyprland
 
 S|${HOME}/.config/hypr|hyprland.conf|hyprland
@@ -70,10 +71,16 @@ S|${HOME}/.config/kitty|kitty.conf|kitty
 
  Shell 
 S|${HOME}/.config|fish|fish
-S|${HOME}|.zshrc .hyde.zshrc .p10k.zsh|zsh
+S|${HOME}|.zshrc .user.zsh|zsh  
+S|${HOME}|.p10k.zsh|zsh zsh-theme-powerlevel10k
 S|${HOME}/.config/starship|starship.toml|starship
 S|${HOME}|.zshenv|zsh
 S|${HOME}/.config|starship.toml|starship
+
+ Vim 
+P|${HOME}/.config/vim|vimrc|vim
+S|${HOME}/.config/vim/colors|wallbash.vim|vim
+S|${HOME}/.config/vim|hyde.vim|vim
 
  File Explorer 
 S|${HOME}/.local/state|dolphinstaterc|dolphin
