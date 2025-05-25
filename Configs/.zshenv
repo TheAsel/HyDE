@@ -116,23 +116,7 @@ function _load_persistent_aliases {
             ld='eza -lhD --icons=auto' \
             lt='eza --icons=auto --tree'
     fi
-
-    alias c='clear' \
-        in='$PM install' \
-        un='$PM remove' \
-        up='$PM upgrade' \
-        pl='$PM search installed' \
-        pa='$PM search all' \
-        pc='sudo pacman -Sc' \
-        po='sudo pacman -Qtdq | sudo pacman -Rns -' \
-        vc='code' \
-        fastfetch='fastfetch --logo-type kitty' \
-        ..='cd ..' \
-        ...='cd ../..' \
-        .3='cd ../../..' \
-        .4='cd ../../../..' \
-        .5='cd ../../../../..' \
-        mkdir='mkdir -p' # Always mkdir a path (this doesn't inhibit functionality to make a single dir)
+}
 
 function _load_omz_on_init() {
     # Load oh-my-zsh when line editor initializes // before user input
