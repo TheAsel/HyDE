@@ -281,6 +281,7 @@ function _load_if_terminal {
             up='${PM_COMMAND[@]} upgrade' \
             pl='${PM_COMMAND[@]} search installed' \
             pa='${PM_COMMAND[@]} search all' \
+            po='sudo pacman -Qtdq | sudo pacman -Rns -' \
             vc='code' \
             fastfetch='fastfetch --logo-type kitty' \
             ..='cd ..' \
