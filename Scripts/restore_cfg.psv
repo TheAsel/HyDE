@@ -75,6 +75,7 @@ S|${HOME}/.config/kitty|kitty.conf|kitty
 S|${HOME}/.config|fish|fish
 S|${HOME}/.config/starship|starship.toml|starship
 
+
 S|${HOME}|.zshenv|zsh
 S|${HOME}/.config/zsh|.zshenv|zsh
 S|${HOME}/.config/zsh/conf.d|hyde 00-hyde.zsh|zsh
@@ -86,8 +87,7 @@ S|${HOME}/.config/zsh/functions|bat.zsh|zsh bat
 S|${HOME}/.config/zsh/completions|fzf.zsh|zsh fzf
 S|${HOME}/.config/zsh/completions|hydectl.zsh|zsh
 
-
-S|${HOME}/.config/zsh|.zshrc user.zsh prompt.zsh|zsh
+S|${HOME}/.config/zsh|.zshrc user.zsh prompt.zsh plugin.zsh|zsh
 S|${HOME}/.config/zsh|.p10k.zsh|zsh zsh-theme-powerlevel10k
 
 
