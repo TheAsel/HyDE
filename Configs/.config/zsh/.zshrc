@@ -24,6 +24,7 @@
 # alias po='$aurhelper -Qtdq | $aurhelper -Rns -'                        # remove unused packages, also try > $aurhelper -Qqd | $aurhelper -Rsu --print -
 # alias vc='code'                                                        # gui code editor
 # alias fastfetch='fastfetch --logo-type kitty'
+alias po='sudo pacman -Qtdq | sudo pacman -Rns -'
 alias timefix='sudo timedatectl set-ntp true'
 
 # # Directory navigation shortcuts
